@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
@@ -474,7 +474,7 @@ function Footer() {
   );
 }
 
-export default function HomePage() {
+function HomeContent() {
   const [activeTab, setActiveTab] = useState<Tab>("search");
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -659,5 +659,13 @@ export default function HomePage() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: "100vh", backgroundColor: "#0F172A" }} />}>
+      <HomeContent />
+    </Suspense>
   );
 }
